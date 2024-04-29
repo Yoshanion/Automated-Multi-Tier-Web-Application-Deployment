@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: back-end-config
+data:
+  DATABASE_URL: "mongodb://my-mongo-service:27017/dbname"
+  FEATURE_FLAG: "true"

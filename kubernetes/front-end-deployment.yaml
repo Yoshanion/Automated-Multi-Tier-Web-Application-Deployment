@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-end-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fornt-end
+  template:
+    metadata:
+      labels:
+        app: fornt-end
+    spec:
+      containers:
+      - name: fornt-end
+        image: multi-tier-app-front-end:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bacl-end-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bacl-end
+  template:
+    metadata:
+      labels:
+        app: bacl-end
+    spec:
+      containers:
+      - name: bacl-end
+        image: multi-tier-app-back-end:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000
+        volumeMounts:  
+        - name: data-storage
+          mountPath: /tmp/data
+        envFrom:
+        - configMapRef:
+            name: back-end-config
+        - secretRef:
+            name: back-end-secret
+      volumes:  
+      - name: data-storage
+        persistentVolumeClaim:
+          claimName: data-pvc        
+      
